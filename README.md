@@ -1,5 +1,14 @@
 # FixMiCTS
 
+## Download
+
+- **[Download FixMiCTS.apk](https://github.com/Flexible78/FixMiCTS/releases/download/v1.2.0-pre.1/FixMiCTS.apk)** — signed Android application.
+- **[Download the public ZIP](https://github.com/Flexible78/FixMiCTS/releases/download/v1.2.0-pre.1/FixMiCTS-1.2.0-public.zip)** — source, Windows helpers and APK.
+- [Release details and SHA256 checksums](https://github.com/Flexible78/FixMiCTS/releases/tag/v1.2.0-pre.1)
+- [Инструкция на русском](README_RU.md)
+
+The APK is under release **Assets**, not in the source-code file list. This is the FixMiCTS companion repair application; install the original MiCTS separately.
+
 Minimal, unofficial Android workaround for Google VoiceInteractionService initialization failures observed on Vivo / OriginOS. Companion to [MiCTS](https://github.com/parallelcc/MiCTS), not a replacement or fork of MiCTS. This project does not implement Circle to Search and does not claim invention of that feature or of its trigger.
 
 **Experimental / prerelease.** One automatic ordinary reboot recovery was verified on Vivo X100 Ultra V2366HA, Android 16, OriginOS 16, firmware PD2366H_A_16.2.19.0.W10. Three cold power cycles, multi-day reliability and comparable day/night battery acceptance remain pending. Other models and firmware versions are not verified.
@@ -47,7 +56,7 @@ Masking is best-effort, not guaranteed anonymization. Package inventories, OEM l
 
 ## Attribution and license
 
-Original project was created by the maintainer with ChatGPT assistance. Published project code is provided under the MIT license; see LICENSE. No MiCTS implementation, MiCTS APK, Google APK, forum screenshots or third-party SDK binaries are included. MiCTS is a separately maintained GPL-3.0 project; its license remains its own. Using its name for interoperability does not imply endorsement by its author, Google or Vivo.
+Created and maintained by Flexible78 with AI-assisted development and auditing. Published project code is provided under the MIT license; see LICENSE. No MiCTS implementation, MiCTS APK, Google APK, forum screenshots or third-party SDK binaries are included. MiCTS is a separately maintained GPL-3.0 project; its license remains its own. Using its name for interoperability does not imply endorsement by its author, Google or Vivo.
 
 Related community setup instructions: https://4pda.to/forum/index.php?showtopic=1092982&view=findpost&p=135605033 . This project addresses a narrower observed boot failure rather than claiming a new way to enable Circle to Search.
 
