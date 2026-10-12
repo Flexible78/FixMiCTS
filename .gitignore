@@ -1,0 +1,13 @@
+_build/
+.sdk/
+.gradle/
+**/build/
+*.jks
+*.keystore
+signing.pw
+*.apk
+*.zip
+*.log
+local.properties
+FixMiCTS-Battery-*/
+.DS_Store
