@@ -6,6 +6,8 @@ $ErrorActionPreference = 'Stop'
 $Root = $PSScriptRoot
 $Package = 'dev.alextsyrkin.fixmicts'
 $Component = 'com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService'
+$VividPackage = 'com.ivianuu.oneplusgestures'
+$VividService = 'com.ivianuu.oneplusgestures/com.ivianuu.vivid.accessibility.VividAccessibilityService'
 $localAdb = Join-Path $Root 'adb.exe'
 if (Test-Path -LiteralPath $localAdb) { $Adb = $localAdb }
 else {
@@ -70,10 +72,27 @@ try {
         if ($assistant -ne $Component -or ($vis -and $vis -ne 'null' -and $vis -ne $Component)) { throw 'Not changed: assistant is not Google or another voice service is selected.' }
         Invoke-Adb @('-s',$Serial,'shell','settings','put','--user','0','secure','voice_interaction_service',$Component)
         Write-Host 'PC fallback write completed as ADB shell; this is NOT proof of app-UID or automatic recovery.'
+        $vividInstalled = @(Invoke-Adb @('-s',$Serial,'shell','pm','list','packages','--user','0',$VividPackage)) | Where-Object { $_ -match [regex]::Escape($VividPackage) }
+        if ($vividInstalled) {
+            $currentServices = (Invoke-Adb @('-s',$Serial,'shell','settings','get','--user','0','secure','enabled_accessibility_services') | Out-String).Trim()
+            if ($currentServices -eq 'null') { $currentServices = '' }
+            $parts = @($currentServices -split ':' | Where-Object { $_ })
+            if ($parts -notcontains $VividService) { $parts += $VividService }
+            $newServices = ($parts -join ':')
+            if ($newServices -ne $currentServices) { Invoke-Adb @('-s',$Serial,'shell','settings','put','--user','0','secure','enabled_accessibility_services',$newServices) }
+            Invoke-Adb @('-s',$Serial,'shell','settings','put','--user','0','secure','accessibility_enabled','1')
+            & $Adb -s $Serial shell am broadcast -a com.ivianuu.vivid.TURN_GESTURES_ON | Out-Null
+            Write-Host 'Vivid accessibility re-enabled from PC fallback (append-only).'
+        } else {
+            Write-Host 'Vivid (com.ivianuu.oneplusgestures) not installed; skipped.'
+        }
         Start-Sleep -Seconds 3
     }
     Write-Host '=== VoiceInteraction binding (read only) ==='
     Invoke-Adb @('-s',$Serial,'shell','dumpsys','voiceinteraction') | Select-String 'mUser=|mComponent=|mBound=|No active implementation'
+    Write-Host '=== Vivid accessibility (read only) ==='
+    Invoke-Adb @('-s',$Serial,'shell','settings','get','--user','0','secure','accessibility_enabled')
+    Invoke-Adb @('-s',$Serial,'shell','settings','get','--user','0','secure','enabled_accessibility_services')
     if ($Mode -eq 'Diagnose') {
         Write-Host '=== App-only logs; launching the app is NOT required ==='
         Invoke-Adb @('-s',$Serial,'logcat','-d','-s','FixMiCTS:I','*:S') | Select-Object -Last 80

@@ -48,8 +48,8 @@ public final class MainActivity extends Activity {
         TextView title = text("Fix MiCTS", 30, Color.WHITE);
         title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         root.addView(title);
-        root.addView(text("Vivo / OriginOS • Google VoiceInteractionService", 14, 0xffa6b4ce));
-        root.addView(text("Одна короткая операция после загрузки. Без интернета, постоянного сервиса и периодического таймера.", 15, 0xffc8d3e8));
+        root.addView(text("Vivo / OriginOS • Google VoiceInteractionService • Vivid N.G.", 14, 0xffa6b4ce));
+        root.addView(text("Одна короткая операция после загрузки: MiCTS/VIS и доступность Vivid. Без интернета, постоянного сервиса и периодического таймера.", 15, 0xffc8d3e8));
         status = text("", 15, 0xffe0e8f8);
         root.addView(status);
 
@@ -83,7 +83,7 @@ public final class MainActivity extends Activity {
             if (cm != null) cm.setPrimaryClip(ClipData.newPlainText("ADB permission", grantCommand));
         });
 
-        root.addView(text("Включите Автозапуск только для Fix MiCTS в OriginOS. После загрузки выполняется одна попытка прямо из полученного события BOOT_COMPLETED, без JobScheduler. OriginOS может блокировать доставку события. Резерв: FIX NOW. Успешная запись не доказывает подключение службы — проверьте MiCTS.", 14, 0xffa6b4ce));
+        root.addView(text("Включите Автозапуск только для Fix MiCTS в OriginOS. После загрузки выполняется одна попытка прямо из полученного события BOOT_COMPLETED, без JobScheduler. OriginOS может блокировать доставку события. Резерв: FIX NOW. Для Vivid доступность включается той же записью настроек, что и вручную «рычажком» (диалог подтверждения не нужен). Успешная запись не доказывает подключение службы — проверьте MiCTS и жесты Vivid.", 14, 0xffa6b4ce));
         setContentView(scroll);
         refresh(null);
     }
